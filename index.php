@@ -1,12 +1,15 @@
 <?php
-    $connection = mysqli_connect("localhost", "root", "", "sakila");
-    if (!$connection) {
-        echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
-        echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
-        echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
-        exit;
-    }
+    require_once 'helper.php';
+    $connection = connect_database();
     $page = $_GET['page'] ?? 1;
+    $flagDelete = $_GET['delete'] ?? '';
+    if ($flagDelete == 0) {
+        $msj_delete = 'No se pudo eliminar el registro. Problablemente el registro que quiere eliminar tiene relación con alguna pelicula.';
+    } else if ($flagDelete == 1) {
+        $msj_delete = 'Registro eliminado exitosamente';
+    } else {
+        $msj_delete = '';
+    }
     $page = (int) $page;
     //var_dump($page);
     /*
@@ -67,7 +70,7 @@
     //var_dump($actors);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -78,6 +81,7 @@
 
 <body>
     <h1>Lista de actores</h1>
+    <p><?php echo $msj_delete ?></p>
     <table border="1">
         <tr>
             <th>Nombre</th>
@@ -88,8 +92,8 @@
             <tr>
                 <td><?php echo $row['first_name'] ?></td>
                 <td><?php echo $row['last_name'] ?></td>
-                <td><a href="#">Editar</a></td>
-                <td><a href="#">Eliminar</a></td>
+                <td><a href="update.php?id=<?php echo $row['actor_id'] ?>">Editar</a></td>
+                <td><a class="delete_link" href="delete.php?id=<?php echo $row['actor_id'] ?>">Eliminar</a></td>
             </tr>
         <?php } ?>
     </table>
@@ -99,6 +103,10 @@
     <?php if ($page < $totalPages) { ?>
         <a href="./index.php?page=<?php print($page + 1); ?>">Siguiente >></a>
     <?php } ?>
+    <br/><br/>
+    <a href="create.php">Crear nuevo actor</a>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="basic_functions.js"></script>
 </body>
 
 </html>
