@@ -77,26 +77,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de actores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
-    <h1>Lista de actores</h1>
     <p><?php echo $msj_delete ?></p>
-    <table border="1">
-        <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th colspan="2">Acciones</th>
-        </tr>
-        <?php foreach ($actors as $key => $row) { ?>
-            <tr>
-                <td><?php echo $row['first_name'] ?></td>
-                <td><?php echo $row['last_name'] ?></td>
-                <td><a href="update.php?id=<?php echo $row['actor_id'] ?>">Editar</a></td>
-                <td><a class="delete_link" href="delete.php?id=<?php echo $row['actor_id'] ?>">Eliminar</a></td>
-            </tr>
-        <?php } ?>
-    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <h1>Lista de actores</h1>
+                <table class="table">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th colspan="2">Acciones</th>
+                    </tr>
+                    <?php foreach ($actors as $key => $row) { ?>
+                        <tr>
+                            <td><?php echo $row['first_name'] ?></td>
+                            <td><?php echo $row['last_name'] ?></td>
+                            <td><a href="update.php?id=<?php echo $row['actor_id'] ?>">Editar</a></td>
+                            <td><a class="delete_link" href="delete.php?id=<?php echo $row['actor_id'] ?>">Eliminar</a></td>
+                        </tr>
+                    <?php } ?>
+                </table>
+            </div>
+        </div>
+    </div>
     <?php if ($page - 1 > 0) { ?>
         <a href="./index.php?page=<?php print($page - 1); ?>"><< Anterior</a>
     <?php } ?>
@@ -106,7 +113,8 @@
     <br/><br/>
     <a href="create.php">Crear nuevo actor</a>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="basic_functions.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="bacsic_functions.js"></script>
 </body>
 
 </html>
